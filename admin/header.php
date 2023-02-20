@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đồ Án Tốt Nghiệp</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <div class="boxcenter">
-        <div class="row mb header">
+        <div class="row mb headeradmin">
             <h1> Admin </h1>
         </div>
         <div class="row mb menu">
@@ -22,4 +22,3 @@
                 <li><a href="index.php?act=thongke">Thống Kê</a></li>
             </ul>
         </div>
-        
