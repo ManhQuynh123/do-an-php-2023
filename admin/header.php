@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đồ Án Tốt Nghiệp</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="boxcenter">
@@ -22,3 +22,4 @@
                 <li><a href="index.php?act=thongke">Thống Kê</a></li>
             </ul>
         </div>
+        
