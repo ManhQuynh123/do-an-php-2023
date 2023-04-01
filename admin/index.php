@@ -2,7 +2,7 @@
     include "../model/pdo.php";
     include "header.php";
     // controller
-
+    //isset là kiểm tra coi là nó có tồn tại hay là không
     if(isset($_GET['act'])){
         $act=$_GET['act'];
         switch ($act){
