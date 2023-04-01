@@ -14,12 +14,12 @@
         </div>
         <div class="row mb menu">
             <ul>
-                <li><a href="admin.html">Trang Chủ</a></li>
-                <li><a href="#">Danh Mục</a></li>
-                <li><a href="#">Hàng Hóa</a></li>
-                <li><a href="#">Khách Hàng</a></li>
-                <li><a href="#">Bình Chọn</a></li>
-                <li><a href="#">Thống Kê</a></li>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="index.php?act=adddm">Danh Mục</a></li>
+                <li><a href="index.php?act=addsp">Hàng Hóa</a></li>
+                <li><a href="index.php?act=dskh">Khách Hàng</a></li>
+                <li><a href="index.php?act=dsbl">Bình Luận</a></li>
+                <li><a href="index.php?act=thongke">Thống Kê</a></li>
             </ul>
         </div>
         
