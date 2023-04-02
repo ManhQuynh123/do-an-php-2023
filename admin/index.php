@@ -17,7 +17,16 @@
                 include "danhmuc/add.php";
                 break;
                 case 'listdanhmuc';
-                    $sql="select * from danhmuc order by name";
+                    $sql="select * from danhmuc order by id desc";
+                    $listdanhmuc=pdo_query($sql);
+                    include "danhmuc/list.php";
+                    break;
+                case 'xoadanhmuc';
+                    if(isset($_GET['id'])&&($_GET['id']>0)){
+                        $sql="delete from danhmuc where id =".$GET['id'];
+                        pdo_execute($sql);
+                    }
+                    $sql="select * from danhmuc order by id desc";
                     $listdanhmuc=pdo_query($sql);
                     include "danhmuc/list.php";
                     break;
