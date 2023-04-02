@@ -10,7 +10,7 @@
 <body>
     <div class="boxcenter">
         <div class="row mb headeradmin">
-            <h1> Admin </h1>
+            <h1> ADMIN </h1>
         </div>
         <div class="row mb menu">
             <ul>

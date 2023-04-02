@@ -13,7 +13,7 @@
                     pdo_execute($sql);
                     $thongbao="Thêm Thành Công";
                 }
-                //Kiểm tra xem người dùng có click vào nút add hay không
+                //Kiểm tra xem người dùng có nút THÊM hay là chưa
                 include "danhmuc/add.php";
                 break;
                 case 'listdanhmuc';
