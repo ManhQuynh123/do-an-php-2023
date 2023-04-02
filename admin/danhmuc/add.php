@@ -1,7 +1,7 @@
 
 <div class="row">
     <div class="row frmtitle">
-        <h1>Thêm Mới Loại Hàng Hóa</h1>
+        <h1>THÊM MỚI LOẠI HÀNG HOÁ</h1>
     </div>
     <div class="row frmcontent">
         <form action="index.php?act=adddanhmuc" method="post">
