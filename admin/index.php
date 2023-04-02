@@ -17,8 +17,8 @@
                 include "danhmuc/add.php";
                 break;
                 case 'listdanhmuc';
-                    $sql="select * from danhmuc order by id desc";
-                    $listdanhmuc=pdo_query($sql);
+                    
+                    $listdanhmuc=loadall_danhmuc();
                     include "danhmuc/list.php";
                     break;
                 case 'xoadanhmuc';
@@ -26,14 +26,12 @@
                         $sql="delete from danhmuc where id =".$GET['id'];
                         pdo_execute($sql);
                     }
-                    $sql="select * from danhmuc order by id desc";
-                    $listdanhmuc=pdo_query($sql);
+                    $listdanhmuc=loadall_danhmuc();
                     include "danhmuc/list.php";
                     break;
                 case 'suasanpham':
                     if(isset($_GET['id'])&&($_GET['id']>0)){
-                        $sql="select * from danhmuc where id=".$_GET['id'];
-                        $dm=pdo_query_one($sql);
+                        $dm=loadone_danhmuc($_GET['id']);
                     }
                     
                     include "sanpham/update.php";
@@ -42,12 +40,10 @@
                     if(isset($_POST['capnhat'])&&($_POST['capnhat'])){
                         $tenloai=$_POST['tenloai'];
                         $id=$_POST['id'];
-                        $sql="update danhmuc set name='".$tenloai."' where id=";
-                        pdo_execute($sql);
+                        update_danhmuc($id,$tenloai);
                         $thongbao="Cập nhật thành công";
                     }
-                    $sql="select * from danhmuc order by id desc";
-                    $listdanhmuc=pdo_query_one($sql);
+                    $listdanhmuc=loadall_danhmuc();
                     include "sanpham/list.php";
                     break;
             default:
