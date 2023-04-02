@@ -11,12 +11,18 @@
                         <th>TÊN LOẠI</th>
                         <th></th>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox" name=""></td>
-                        <td>0001</td>
-                        <td>Đồng Hồ</td>
-                        <td><input type="button" value="Sửa"><input type="button" value="Xoá"></td>
-                    </tr>    
+                    <?php
+                        foreach($listdanhmuc as $danhmuc) {
+                        echo'
+                        <tr>
+                            <td><input type="checkbox" name=""></td>
+                            <td>'.$id.'</td>
+                            <td>'.$name.'</td>
+                            <td><input type="button" value="Sửa"><input type="button" value="Xoá"></td>
+                        </tr> ';
+                        }
+                    ?>
+                       
                 </table>
             </div>
             <div class="row mb10">

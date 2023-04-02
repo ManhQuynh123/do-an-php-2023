@@ -17,6 +17,8 @@
                 include "danhmuc/add.php";
                 break;
                 case 'listdanhmuc';
+                    $sql="select * from danhmuc order by name";
+                    $listdanhmuc=pdo_query($sql);
                     include "danhmuc/list.php";
                     break;
                 case 'addsanpham':
