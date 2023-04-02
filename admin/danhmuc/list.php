@@ -13,14 +13,17 @@
                     </tr>
                     <?php
                         foreach($listdanhmuc as $danhmuc) {
-                        echo'
-                        <tr>
-                            <td><input type="checkbox" name=""></td>
-                            <td>'.$id.'</td>
-                            <td>'.$name.'</td>
-                            <td><input type="button" value="Sửa"><input type="button" value="Xoá"></td>
-                        </tr> ';
-                        }
+                            extract($danhmuc);
+                            $suadanhmuc="index.php?act=suadanhmuc&id=".$id;
+                            $xoadanhmuc="index.php?act=xoadanhmuc&id=".$id;
+                            echo'
+                            <tr>
+                                <td><input type="checkbox" name=""></td>
+                                <td>'.$id.'</td>
+                                <td>'.$name.'</td>
+                                <td><a href="'.$suadanhmuc.'"><input type="button" value="Sửa"><a href="'.$xoadanhmuc.'"><input type="button" value="Xoá"></td>
+                            </tr> ';
+                            }
                     ?>
                        
                 </table>
@@ -29,7 +32,7 @@
                 <input type="button" value="Chọn Tất Cả">
                 <input type="button" value="Bỏ Chọn Tất Cả">
                 <input type="button" value="Xoá Tất Cả Các Mục Đã Chọn">
-                <a href="#"><input type="button" value="Nhập Thêm"></a>
+                <a href="index.php?act=adddanhmuc"><input type="button" value="Nhập Thêm"></a>
             </div>
         </div>
     </div>
