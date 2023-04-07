@@ -1,5 +1,7 @@
 <?php
     include "../model/pdo.php";
+    include "../model/danhmuc.php";
+    include "../model/sanpham.php";
     include "header.php";
     // controller
     //isset là kiểm tra coi là nó có tồn tại hay là không
@@ -48,11 +50,21 @@
                     break;
             /*controller san pham */
             case 'addsanpham':
-                if(isset($_POST['themmoi'])){
-                    $tenloai=$_POST['tenloai'];
-                    $sql="insert into sanpham(name) values('$tenloai')";
-                    pdo_execute($sql);
-                    $thongbao="Thêm Thành Công";
+                if(isset($_POST['themmoi'])&&($_POST['themmoi'])){
+                    $tensp=$_POST['tensp'];
+                    $giasp=$_POST['giasp'];
+                    $mota=$_POST['mota'];
+                    $filename=$_FILES['hinh']['name'];
+                    $target_dir = "upload/";
+                    $target_file = $target_dir . basename($_FILE["hinh"]["name"]);
+                    if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)){
+                        echo "The file ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). "has been uploaded. ";
+
+                    }else{
+                        echo "Sorry, there was an error uploading your life. ";
+                    }
+                    insert_sanpham($tenloai);
+                    $thongbao="thêm thành công";
                 }
                 //Kiểm tra xem người dùng có nút THÊM hay là chưa
                 include "sanpham/add.php";
