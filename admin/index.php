@@ -29,7 +29,7 @@
                     $listdanhmuc=loadall_danhmuc();
                     include "danhmuc/list.php";
                     break;
-                case 'suasanpham':
+                case 'suadanhmuc':
                     if(isset($_GET['id'])&&($_GET['id']>0)){
                         $dm=loadone_danhmuc($_GET['id']);
                     }
@@ -44,6 +44,47 @@
                         $thongbao="Cập nhật thành công";
                     }
                     $listdanhmuc=loadall_danhmuc();
+                    include "danhmuc/list.php";
+                    break;
+            /*controller san pham */
+            case 'addsanpham':
+                if(isset($_POST['themmoi'])){
+                    $tenloai=$_POST['tenloai'];
+                    $sql="insert into sanpham(name) values('$tenloai')";
+                    pdo_execute($sql);
+                    $thongbao="Thêm Thành Công";
+                }
+                //Kiểm tra xem người dùng có nút THÊM hay là chưa
+                include "sanpham/add.php";
+                break;
+                case 'listsanpham';
+                    
+                    $listsanpham=loadall_sanpham();
+                    include "sanpham/list.php";
+                    break;
+                case 'xoasanpham';
+                    if(isset($_GET['id'])&&($_GET['id']>0)){
+                        $sql="delete from sanpham where id =".$GET['id'];
+                        pdo_execute($sql);
+                    }
+                    $listsanpham=loadall_sanpham();
+                    include "sanpham/list.php";
+                    break;
+                case 'suasanpham':
+                    if(isset($_GET['id'])&&($_GET['id']>0)){
+                        $dm=loadone_sanpham($_GET['id']);
+                    }
+                    
+                    include "sanpham/update.php";
+                    break;
+                case 'updatesanpham':
+                    if(isset($_POST['capnhat'])&&($_POST['capnhat'])){
+                        $tenloai=$_POST['tenloai'];
+                        $id=$_POST['id'];
+                        update_sanpham($id,$tenloai);
+                        $thongbao="Cập nhật thành công";
+                    }
+                    $listsanpham=loadall_sanpham();
                     include "sanpham/list.php";
                     break;
             default:
