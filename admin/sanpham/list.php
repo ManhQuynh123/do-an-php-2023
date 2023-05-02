@@ -1,44 +1,79 @@
-<div class="row">
-        <div class="row frmtitle">
-            <H1>DANH SÁCH KHÁCH HÀNG</H1>
+    <div class="row">
+        <div class="row frmtitle mb">
+            <h1>DANH MỤC SẢN PHẨM</h1>
         </div>
+            <form action="index.php?act=listsanpham" method="post">
+            <div class="mb10">Tìm Kiếm</div>
+                        <input type="text" name="kyw">
+                        <select name="iddanhmuc">
+                            <option value="0" selected>Tất Cả</option>
+                            <?php
+                                    foreach($listsanpham as $sanpham){
+                                        extract($sanpham);
+                                        echo '<option value='.$id.'>'.$name.'</option>';
+                                    }
+                                ?>
+                        </select>
+                        <input type="submit" name="listok" value="GO">
+                    </form>
         <div class="row frmcontent">
-            <div class="row mb10 frmsloai">
+            <div class="row mb10 frmdsloai">
                 <table>
-                    <tr>
-                        <th></th>
-                        <th>MÃ LOẠI</th>
-                        <th>TÊN SẢN PHẨM</th>
-                        <th>HÌNH</th>
-                        <th>GIÁ</th>
-                        <th>LƯỢT XEM</th>
-                        <th></th>
-                    </tr>
-                    <?php
-                        foreach($listsanpham as $sanpham) {
-                            extract($sanpham);
-                            $suasanpham="index.php?act=suasanpham&id=".$id;
-                            $xoasanpham="index.php?act=xoasanpham&id=".$id;
-                            echo'
-                            <tr>
-                                <td><input type="checkbox" name=""></td>
-                                <td>'.$id.'</td>
-                                <td>'.$name.'</td>
-                                <td>'.$img.'</td>
-                                <td>'.$price.'</td>
-                                <td>'.$luotxem.'</td>
-                                <td><a href="'.$suadanhmuc.'"><input type="button" value="Sửa"><a href="'.$xoadanhmuc.'"><input type="button" value="Xoá"></td>
-                            </tr> ';
-                            }
-                    ?>
-                       
+                <tr>
+                    <th>Mã Loại</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Hình Ảnh</th>
+                    <th>Giá</th>
+                    <th></th>
+                </tr>
+                <?php
+                foreach($listsanpham as $sanpham){
+                    extract($sanpham);
+                    $suasanpham = "index.php?act=suasanpham&id=".$id;
+                    $xoasanpham = "index.php?act=xoasanpham&id=".$id;
+                    $hinhpath="../upload/".$img;
+                    if(is_file($hinhpath)){
+                        $hinh="<img src='".$hinhpath."' height='80'>";
+                    }else{
+                        $hinh="no photo";
+                    }
+                    echo '<tr>
+                    <td>'.$id.'</td>
+                    <td>'.$name.'</td>
+                    <td>'.$hinh.'</td>
+                    <td>'.$gia.'</td>
+                    <td><a href="'.$suasanpham.'"><input type="button" value="Sửa"></a> <a href="'.$xoasanpham.'"><input type="button" value="Xóa"></a></td>
+                    </tr>';
+                }
+                ?>
                 </table>
-            </div>
-            <div class="row mb10">
-                <input type="button" value="Chọn Tất Cả">
-                <input type="button" value="Bỏ Chọn Tất Cả">
-                <input type="button" value="Xoá Tất Cả Các Mục Đã Chọn">
-                <a href="index.php?act=addsanpham"><input type="button" value="Nhập Thêm"></a>
             </div>
         </div>
     </div>
+
+    <style>
+    .frmdsloai table{
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .frmdsloai table th{
+        padding: 20px;
+        background-color: #CCC;
+    }
+    .frmdsloai table th:nth-child(2){
+        width: 30%;
+        background-color: #CCC;
+    }
+    .frmdsloai table th:nth-child(3){
+        width: 40%;
+        background-color: #CCC;
+    }
+    .frmdsloai table th:nth-child(4){
+        width: 20%;
+        background-color: #CCC;
+    }
+    .frmdsloai table td{
+        padding: 10px 20px;
+        border: 1px #CCC solid;
+    }
+    </style>

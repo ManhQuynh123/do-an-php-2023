@@ -1,112 +1,165 @@
-<?php
-    include "../model/pdo.php";
-    include "../model/danhmuc.php";
-    include "../model/sanpham.php";
-    include "header.php";
-    // controller
-    //isset là kiểm tra coi là nó có tồn tại hay là không
-    if(isset($_GET['act'])){
-        $act=$_GET['act'];
-        switch ($act){
-            case 'adddanhmuc':
-                if(isset($_POST['themmoi'])){
-                    $tenloai=$_POST['tenloai'];
-                    $sql="insert into danhmuc(name) values('$tenloai')";
-                    pdo_execute($sql);
-                    $thongbao="Thêm Thành Công";
-                }
-                //Kiểm tra xem người dùng có nút THÊM hay là chưa
-                include "danhmuc/add.php";
+    <?php
+        include "../model/pdo.php";
+        include "../model/danhmuc.php";
+        include "../model/sanpham.php";
+        include "../model/taikhoan.php";
+        include "header.php";
+        // controller
+
+        if(isset($_GET['act'])){
+            $act=$_GET['act'];
+            switch ($act){
+                case 'adddanhmuc':
+                    // kiểm tra có nút thêm không
+                    if(isset($_POST['themmoi'])&&($_POST['themmoi'])){
+                        $tenloai=$_POST['tenloai'];
+                        insert_danhmuc($tenloai);
+                        $thongbao="Thêm Thành Công";
+                    }
+                    include "danhmuc/add.php";
                 break;
-                case 'listdanhmuc';
-                    
-                    $listdanhmuc=loadall_danhmuc();
-                    include "danhmuc/list.php";
-                    break;
-                case 'xoadanhmuc';
-                    if(isset($_GET['id'])&&($_GET['id']>0)){
-                        $sql="delete from danhmuc where id =".$GET['id'];
-                        pdo_execute($sql);
+
+
+                case 'listdanhmuc':
+                        $listdanhmuc=loadAll_danhmuc();
+                        include "danhmuc/list.php";
+                break;
+
+
+                case'xoadanhmuc':
+                    if (isset($_GET['id'])&&($_GET['id']>0)) {
+                        # code...
+                        delete_danhmuc($_GET['id']);
                     }
-                    $listdanhmuc=loadall_danhmuc();
-                    include "danhmuc/list.php";
-                    break;
-                case 'suadanhmuc':
-                    if(isset($_GET['id'])&&($_GET['id']>0)){
-                        $dm=loadone_danhmuc($_GET['id']);
+                        $listdanhmuc=loadAll_danhmuc();
+                        include "danhmuc/list.php";
+                break;
+
+
+                case'suadanhmuc':
+                    if (isset($_GET['id'])&&($_GET['id']>0)) {
+                        $dm=loadOne_danhmuc($_GET['id']);
                     }
-                    
-                    include "sanpham/update.php";
-                    break;
-                case 'updatedanhmuc':
+                    include "danhmuc/update.php";
+                break;
+
+                case'updatedanhmuc':
+
                     if(isset($_POST['capnhat'])&&($_POST['capnhat'])){
                         $tenloai=$_POST['tenloai'];
                         $id=$_POST['id'];
                         update_danhmuc($id,$tenloai);
-                        $thongbao="Cập nhật thành công";
                     }
-                    $listdanhmuc=loadall_danhmuc();
+                    $listdanhmuc=loadAll_danhmuc();
                     include "danhmuc/list.php";
-                    break;
-            /*controller san pham */
-            case 'addsanpham':
-                if(isset($_POST['themmoi'])&&($_POST['themmoi'])){
-                    $tensp=$_POST['tensp'];
-                    $giasp=$_POST['giasp'];
-                    $mota=$_POST['mota'];
-                    $filename=$_FILES['hinh']['name'];
-                    $target_dir = "upload/";
-                    $target_file = $target_dir . basename($_FILE["hinh"]["name"]);
-                    if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)){
-                        echo "The file ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). "has been uploaded. ";
-
-                    }else{
-                        echo "Sorry, there was an error uploading your life. ";
-                    }
-                    insert_sanpham($tenloai);
-                    $thongbao="thêm thành công";
-                }
-                //Kiểm tra xem người dùng có nút THÊM hay là chưa
-                include "sanpham/add.php";
                 break;
-                case 'listsanpham';
-                    
-                    $listsanpham=loadall_sanpham();
-                    include "sanpham/list.php";
-                    break;
-                case 'xoasanpham';
-                    if(isset($_GET['id'])&&($_GET['id']>0)){
-                        $sql="delete from sanpham where id =".$GET['id'];
-                        pdo_execute($sql);
+
+                /*Đây là phần sản phẩm*/
+
+                case 'addsanpham':
+                    // kiểm tra bên người dùng có nút thêm hay không
+                    if(isset($_POST['themmoi'])&&($_POST['themmoi'])){
+                        $iddanhmuc=$_POST['iddanhmuc'];
+                        $tensp=$_POST['tensp'];
+                        $giasp=$_POST['giasp'];
+                        $mota=$_POST['mota'];
+                        $hinh=$_FILES['hinh']['name'];
+                        $target_dir = "../upload/";
+                        $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+                        if(move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)){
+                            // echo "". htmlspecialchars(basename($_FILES["hinh"]["name"])). "hãy upload lại.";
+                        }else{
+                            // echo "Không có ảnh đã thêm vào";
+                        }
+                        insert_sanpham($tensp, $giasp, $hinh, $mota,$iddanhmuc);
+                        $thongbao="Thêm Thành Công";
                     }
-                    $listsanpham=loadall_sanpham();
-                    include "sanpham/list.php";
-                    break;
-                case 'suasanpham':
-                    if(isset($_GET['id'])&&($_GET['id']>0)){
-                        $dm=loadone_sanpham($_GET['id']);
+                    $listdanhmuc=loadAll_danhmuc();
+                    // var_dump($listdanhmuc);
+                    include "sanpham/add.php";
+                break;
+
+                case 'listsanpham':
+                        if(isset($_POST['listok'])&&($_POST['listok'])){
+                            $kyw=$_POST['kyw'];
+                            $iddanhmuc=$_POST['iddanhmuc'];
+                        }else{
+                            $kyw='';
+                            $iddanhmuc=0;
+                        }
+                        $listsanpham=loadAll_sanpham($kyw,$iddanhmuc);
+                        $listdanhmuc=loadAll_danhmuc();
+                        include "sanpham/list.php";
+                break;
+
+                case'xoasanpham':
+                    if (isset($_GET['id'])&&($_GET['id']>0)) {
+                        # code...
+                        delete_sanpham($_GET['id']);
                     }
-                    
+                        $listsanpham=loadAll_sanpham_home("",0);
+                        include "sanpham/list.php";
+                break;
+
+                case'suasanpham':
+                    if (isset($_GET['id'])&&($_GET['id']>0)) {
+                        $sanpham=loadOne_sanpham($_GET['id']);
+                    }
+                    $listdanhmuc=loadAll_danhmuc();
                     include "sanpham/update.php";
-                    break;
-                case 'updatesanpham':
+                break;
+
+                case'updatesanpham':
                     if(isset($_POST['capnhat'])&&($_POST['capnhat'])){
-                        $tenloai=$_POST['tenloai'];
                         $id=$_POST['id'];
-                        update_sanpham($id,$tenloai);
-                        $thongbao="Cập nhật thành công";
+                        $iddanhmuc=$_POST['iddanhmuc'];
+                        $tensp=$_POST['tensp'];
+                        $giasp=$_POST['giasp'];
+                        $hinh=$_FILES['hinh']['name'];
+                        $mota=$_POST['mota'];
+                        $target_dir = "../upload/";
+                        $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+                        if(move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)){
+                            // echo "". htmlspecialchars(basename($_FILES["hinh"]["name"])). "hãy upload lại.";
+                        }else{
+                            // echo "Không có ảnh";
+                        }
+                        update_sanpham($id,$iddanhmuc,$tensp,$giasp,$hinh,$mota);
+                        $thongbao="Cập Nhật Thành Công";
                     }
-                    $listsanpham=loadall_sanpham();
+                    $listdanhmuc=loadAll_danhmuc();
+                    $listsanpham=loadAll_sanpham_home("",0);
                     include "sanpham/list.php";
                     break;
-            default:
+
+                case'dskhachhang':
+                    $listtaikhoan=loadAll_taikhoan();
+                    include "taikhoan/list.php";
+                break;
+                
+                case'xoataikhoan':
+                    if (isset($_GET['id'])&&($_GET['id']>0)) {
+                        # code...
+                        delete_taikhoan($_GET['id']);
+                    }
+                    $listtaikhoan=loadAll_taikhoan();
+                    include "taikhoan/list.php";
+                break;
+                case'suataikhoan':
+                    if (isset($_GET['id'])&&($_GET['id']>0)) {
+                        $taikhoan=loadOne_taikhoan($_GET['id']);
+                    }
+                    $listtaikhoan=loadAll_taikhoan();
+                    include "sanpham/update.php";
+                break;
+                default:
                 include "home.php";
                 break;
         }
-    }else{
-        include "home.php";
-    }
+        }else{
+            include "home.php";
+        }
 
-    include "home.php";
-    include "footer.php";
-?>
+        //include "home.php";
+        include "footer.php";
+    ?>

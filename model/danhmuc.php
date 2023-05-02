@@ -1,4 +1,4 @@
-<?php
+    <?php
     function insert_danhmuc($tenloai){
         $sql="insert into danhmuc(name) values('$tenloai')";
         pdo_execute($sql);
@@ -7,12 +7,12 @@
         $sql="delete from danhmuc where id=".$id;
         pdo_execute($sql);
     }
-    function loadall_danhmuc(){
-        $sql="delete * from danhmuc order by id desc";
+    function loadAll_danhmuc(){
+        $sql="select * from danhmuc order by id desc";
         $listdanhmuc=pdo_query($sql);
-        return $listdanhmuc;
+        return $listdanhmuc; 
     }
-    function loadone_danhmuc($id){
+    function loadOne_danhmuc($id){
         $sql="select * from danhmuc where id=".$id;
         $dm=pdo_query_one($sql);
         return $dm;
@@ -21,3 +21,4 @@
         $sql="update danhmuc set name='".$tenloai."' where id=".$id;
         pdo_execute($sql);
     }
+    ?>

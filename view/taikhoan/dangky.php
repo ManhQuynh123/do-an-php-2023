@@ -1,4 +1,4 @@
-<div class="row mb ">
+    <div class="row mb ">
         <div class="boxtrai mr">
         <div class="row mb">
             <div class="boxtitle">ĐĂNG KÝ THÀNH VIÊN</div>
@@ -37,3 +37,8 @@
         </div>
     </div>
 
+
+            
+        
+            
+        

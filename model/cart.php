@@ -1,4 +1,4 @@
-<?php
+    <?php
         function viewcart($del){
             global $img_path;
             $tong=0;
